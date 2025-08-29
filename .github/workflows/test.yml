@@ -114,7 +114,7 @@ jobs:
         with:
           name: Playwright Test Report
           path: ./playwright-report
-          retention-days: 14
+          retention-days: 1
 
       - name: Send TestDino report
         run: |

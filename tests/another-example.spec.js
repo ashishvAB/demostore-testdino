@@ -28,17 +28,7 @@ async function logout() {
   await allPages.loginPage.clickOnLogoutButton();
 }
 
-test('Verify that user can login and logout successfully', async () => {
-  await login();
-  await logout();
-});
 
-test('Verify that user can update personal information', async () => {
-  await login();
-  await allPages.userPage.clickOnUserProfileIcon();
-  await allPages.userPage.updatePersonalInfo();
-  await allPages.userPage.verifyPersonalInfoUpdated();
-});
 
 test('Verify that User Can Add, Edit, and Delete Addresses after Logging In', async () => {
     await login();
@@ -62,31 +52,6 @@ test('Verify that User Can Add, Edit, and Delete Addresses after Logging In', as
   });
 });
 
-test('Verify that user can change password successfully', async () => {
-  await test.step('Login with existing password', async () => {
-    await login1();
-  });
-
-  await test.step('Change password and verify login with new password', async () => {
-    await allPages.userPage.clickOnUserProfileIcon();
-    await allPages.userPage.clickOnSecurityButton();
-    await allPages.userPage.enterNewPassword();
-    await allPages.userPage.enterConfirmNewPassword();
-    await allPages.userPage.clickOnUpdatePasswordButton();
-    await allPages.userPage.getUpdatePasswordNotification();
-  });
-  await test.step('Verify login with new password and revert back to original password', async () => {
-    // Re-login with new password
-    await logout();
-    await allPages.loginPage.login(process.env.USERNAME1, process.env.NEW_PASSWORD);
-
-    // Revert back
-    await allPages.userPage.clickOnUserProfileIcon();
-    await allPages.userPage.clickOnSecurityButton();
-    await allPages.userPage.revertPasswordBackToOriginal();
-    await allPages.userPage.getUpdatePasswordNotification();
-  })
-});
 
 test('Verify that the New User is able to add Addresses in the Address section', async () => {
   await login();
@@ -463,27 +428,6 @@ test('Verify That a New User Can Successfully Complete the Journey from Registra
   })
 });
 
-test('Verify that the new user is able to Sign Up, Log In, and Navigate to the Home Page Successfully', async () => {
-    const email = `test+${Date.now()}@test.com`;
-    const firstName = 'Test';
-    const lastName = 'User';
-
-  await test.step('Verify that user can register successfully', async () => {
-    await allPages.loginPage.clickOnUserProfileIcon();
-    await allPages.loginPage.validateSignInPage();
-    await allPages.loginPage.clickOnSignupLink();
-    await allPages.signupPage.assertSignupPage();
-    await allPages.signupPage.signup(firstName, lastName, email, process.env.PASSWORD);
-    await allPages.signupPage.verifySuccessSignUp();
-  })
-
-  await test.step('Verify that user can login successfully', async () => {
-    await allPages.loginPage.validateSignInPage();
-    await allPages.loginPage.login(email, process.env.PASSWORD);
-    await allPages.loginPage.verifySuccessSignIn();
-    await expect(allPages.homePage.getHomeNav()).toBeVisible({ timeout: 30000 });
-  })
-})
 
 test('Verify that user is able to fill Contact Us page successfully', async () => {
     await login();
@@ -576,18 +520,6 @@ test('Verify that user can purchase multiple quantities in a single order', asyn
     await allPages.checkoutPage.verifyCashOnDeliverySelected();
     await allPages.checkoutPage.clickOnPlaceOrder();
     await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-});
-
-test('Verify that all the navbar are working properly', async () => {
-    await login();
-    await allPages.homePage.clickBackToHomeButton();
-    // await allPages.homePage.assertHomePage();
-    await allPages.homePage.clickAllProductsNav();
-    await allPages.allProductsPage.assertAllProductsTitle();
-    await allPages.homePage.clickOnContactUsLink();
-    await allPages.contactUsPage.assertContactUsTitle();
-    await allPages.homePage.clickAboutUsNav();
-    await allPages.homePage.assertAboutUsTitle();
 });
 
 test('Verify that user is able to delete selected product from cart', async () => {

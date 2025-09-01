@@ -56,12 +56,12 @@ class CheckoutPage extends BasePage {
         checkoutTitle: "h1[data-testid='checkout-title']",
         productNameInCheckout: "//h3[normalize-space()='{}']",
         cashOnDeliveryButton: "//button[normalize-space()='Cash on Delivery']",
-        cashOnDeliveryText: "//p[normalize-space()='Cash on Delivery']",
-        placeOrderButton: "//button[normalize-space()='Place Order']",
+        cashOnDeliveryText: "//p[normalize-space()='Cash on elivery']", // itentionally changed the lcoator
+        placeOrderButton: "//button[normalize-space()='Place Ord']", // itentionally changed the locator
         orderSuccessMessage: "//p[contains(text(), 'Your order was placed successf')]",
         orderItemNameConfirmation: "p[data-testid='order-item-name']",
         continueShoppingButton: 'button[data-testid="continue-shopping-button"]',
-        orderConfirmedTitle: `[data-testid="order-confirmed-title"]`
+        orderConfirmedTitle: `[data-testid="order-confirmed-titl"]`  //intentionally changed the locator
     }
 
     // **************** Shipping Address **************** //

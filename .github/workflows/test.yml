@@ -41,17 +41,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test 
 
-      - name: Upload report
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: Playwright Test Report
-          path: ./playwright-report
-          retention-days: 1
-
       - name: Send TestDino report
+        if: always()   # ✅ send report even if tests fail
         run: |
-          npx --yes tdpw ./playwright-report \
-            --token=${{ secrets.TESTDINO_TOKEN }} \
-            --upload-html \
-            --verbose
+          npx tdpw ./playwright-report --token=${{ secrets.TESTDINO_TOKEN }} --upload-html --verbose

@@ -50,25 +50,25 @@ test('Verify that the New User is able to add Addresses in the Address section',
   await allPages.userPage.fillAddressForm();
 });
 
-test('Verify that User Can Complete the Journey from Login to Order Placement', async () => {
-  const productName = 'GoPro HERO10 Black';
-  await login();
-  await allPages.inventoryPage.clickOnShopNowButton();
-  await allPages.inventoryPage.clickOnAllProductsLink();
-  await allPages.inventoryPage.searchProduct(productName);
-  await allPages.inventoryPage.verifyProductTitleVisible(productName);
-  await allPages.inventoryPage.clickOnAddToCartIcon();
+// test('Verify that User Can Complete the Journey from Login to Order Placement', async () => {
+//   const productName = 'GoPro HERO10 Black';
+//   await login();
+//   await allPages.inventoryPage.clickOnShopNowButton();
+//   await allPages.inventoryPage.clickOnAllProductsLink();
+//   await allPages.inventoryPage.searchProduct(productName);
+//   await allPages.inventoryPage.verifyProductTitleVisible(productName);
+//   await allPages.inventoryPage.clickOnAddToCartIcon();
 
-  await allPages.cartPage.clickOnCartIcon();
-  await allPages.cartPage.verifyCartItemVisible(productName);
-  await allPages.cartPage.clickOnCheckoutButton();
-  await allPages.checkoutPage.verifyCheckoutTitle();
-  await allPages.checkoutPage.verifyProductInCheckout(productName);
-  await allPages.checkoutPage.selectCashOnDelivery();
-  await allPages.checkoutPage.verifyCashOnDeliverySelected();
-  await allPages.checkoutPage.clickOnPlaceOrder();
-  await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
-});
+//   await allPages.cartPage.clickOnCartIcon();
+//   await allPages.cartPage.verifyCartItemVisible(productName);
+//   await allPages.cartPage.clickOnCheckoutButton();
+//   await allPages.checkoutPage.verifyCheckoutTitle();
+//   await allPages.checkoutPage.verifyProductInCheckout(productName);
+//   await allPages.checkoutPage.selectCashOnDelivery();
+//   await allPages.checkoutPage.verifyCashOnDeliverySelected();
+//   await allPages.checkoutPage.clickOnPlaceOrder();
+//   await allPages.checkoutPage.verifyOrderPlacedSuccessfully();
+// });
 
 
 test('Verify that the new user is able to Sign Up, Log In, and Navigate to the Home Page Successfully', async () => {

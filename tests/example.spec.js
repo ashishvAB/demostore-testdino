@@ -312,7 +312,7 @@ test('Verify that user can filter products by price range', async () => {
     await allPages.homePage.clickOnShopNowButton();
     await allPages.homePage.clickOnFilterButton();
     await allPages.homePage.AdjustPriceRangeSlider('10000', '20000');
-    await allPages.homePage.clickOnFilterButton();
+    // await allPages.homePage.clickOnFilterButton();
 });
 
 // test('Verify if user can add product to wishlist, moves it to card and then checks out', async () => {

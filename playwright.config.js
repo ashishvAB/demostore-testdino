@@ -11,7 +11,7 @@ export default defineConfig({
   workers: isCI ? 1 : 10,
 
   timeout: 20 * 1000, // ⏱️ each test fails after 20 seconds
-  // In CI we only show a list reporter. The workflow sets --reporter=blob.
+  // In CI we only show a list reporter. The workflow sets --reporter=blob. awdwadawd
   // Locally you also get HTML and JSON.
   reporter: [
     ['html', {

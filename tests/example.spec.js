@@ -493,68 +493,68 @@ test('Verify that user is able to fill Contact Us page successfully', async () =
     await allPages.contactUsPage.verifySuccessContactUsFormSubmission();
 });
 
-// test('Verify that user is able to submit a product review ', async () => {
-//   await test.step('Login as existing user and navigate to a product', async () => {
-//     await login();
-//   })
+test('Verify that user is able to submit a product review ', async () => {
+  await test.step('Login as existing user and navigate to a product', async () => {
+    await login();
+  })
 
-//   await test.step('Navigate to all product section and select a product', async () => {
-//     await allPages.homePage.clickOnShopNowButton();
-//     await allPages.allProductsPage.assertAllProductsTitle();
-//     await allPages.allProductsPage.clickNthProduct(1);
-//   })
+  await test.step('Navigate to all product section and select a product', async () => {
+    await allPages.homePage.clickOnShopNowButton();
+    await allPages.allProductsPage.assertAllProductsTitle();
+    await allPages.allProductsPage.clickNthProduct(1);
+  })
 
-//   await test.step('Submit a product review and verify submission', async () => {
-//     await allPages.productDetailsPage.clickOnReviewsTab();
-//     await allPages.productDetailsPage.assertReviewsTab();
+  await test.step('Submit a product review and verify submission', async () => {
+    await allPages.productDetailsPage.clickOnReviewsTab();
+    await allPages.productDetailsPage.assertReviewsTab();
     
-//     await allPages.productDetailsPage.clickOnWriteAReviewBtn();
-//     await allPages.productDetailsPage.fillReviewForm();
-//     await allPages.productDetailsPage.assertSubmittedReview({
-//         name: 'John Doe',
-//         title: 'Great Product',
-//         opinion: 'This product exceeded my expectations. Highly recommend!'
-//     });
-//   })
-// });
+    await allPages.productDetailsPage.clickOnWriteAReviewBtn();
+    await allPages.productDetailsPage.fillReviewForm();
+    await allPages.productDetailsPage.assertSubmittedReview({
+        name: 'John Doe',
+        title: 'Great Product',
+        opinion: 'This product exceeded my expectations. Highly recommend!'
+    });
+  })
+});
 
-// test('Verify that user can edit and delete a product review', async () => {
-//   await test.step('Login as existing user and navigate to a product', async () => {
-//     await login();
-//   })
+test('Verify that user can edit and delete a product review', async () => {
+  await test.step('Login as existing user and navigate to a product', async () => {
+    await login();
+  })
 
-//   await test.step('Navigate to all product section and select a product', async () => {
-//     await allPages.homePage.clickOnShopNowButton();
-//     await allPages.allProductsPage.assertAllProductsTitle();
-//     await allPages.allProductsPage.clickNthProduct(1);
-//   })
+  await test.step('Navigate to all product section and select a product', async () => {
+    await allPages.homePage.clickOnShopNowButton();
+    await allPages.allProductsPage.assertAllProductsTitle();
+    await allPages.allProductsPage.clickNthProduct(1);
+  })
 
-//   await test.step('Submit a product review and verify submission', async () => {
-//     await allPages.productDetailsPage.clickOnReviewsTab();
-//     await allPages.productDetailsPage.assertReviewsTab();
+  await test.step('Submit a product review and verify submission', async () => {
+    await allPages.productDetailsPage.clickOnReviewsTab();
+    await allPages.productDetailsPage.assertReviewsTab();
     
-//     await allPages.productDetailsPage.clickOnWriteAReviewBtn();
-//     await allPages.productDetailsPage.fillReviewForm();
-//     await allPages.productDetailsPage.assertSubmittedReview({
-//         name: 'John Doe',
-//         title: 'Great Product',
-//         opinion: 'This product exceeded my expectations. Highly recommend!'
-//     }); 
-//   })
+    await allPages.productDetailsPage.clickOnWriteAReviewBtn();
+    await allPages.productDetailsPage.fillReviewForm();
+    await allPages.productDetailsPage.assertSubmittedReview({
+        name: 'John Doe',
+        title: 'Great Product',
+        opinion: 'This product exceeded my expectations. Highly recommend!'
+    }); 
+  })
 
-//   await test.step('Edit the submitted review and verify changes', async () => {
-//     await allPages.productDetailsPage.clickOnEditReviewBtn();
-//     await allPages.productDetailsPage.updateReviewForm();
-//     await allPages.productDetailsPage.assertUpdatedReview({
-//         title: 'Updated Review Title',
-//         opinion: 'This is an updated review opinion.'
-//     })
-//     });
+  await test.step('Edit the submitted review and verify changes', async () => {
+    await allPages.productDetailsPage.clickOnEditReviewBtn();
+    await allPages.productDetailsPage.updateReviewForm();
+    await allPages.productDetailsPage.assertUpdatedReview({
+        title: 'Updated Review Title',
+        opinion: 'This is an updated review opinion.'
+    })
+    });
 
-//   await test.step('Delete the submitted review and verify deletion', async () => {
-//     await allPages.productDetailsPage.clickOnDeleteReviewBtn();
-//   })
-// });
+  await test.step('Delete the submitted review and verify deletion', async () => {
+    await allPages.productDetailsPage.clickOnDeleteReviewBtn();
+  })
+});
 
 // test('Verify that user can purchase multiple quantities in a single order', async () => {
 //     const productName = 'GoPro HERO10 Black';

@@ -1,6 +1,5 @@
-# .github/workflows/playwright-daily.yml
-# Runs Playwright test shards every day at **11 : 42 AM IST** (06 : 12 UTC)
-# plus anytime you trigger it manually from the Actions tab.
+# .github/workflows/test.yml
+# Runs Playwright tests on push, pull requests, and manual triggers
 
 name: Run Playwright tests
 
@@ -11,14 +10,8 @@ on:
 
 jobs:
   run-tests:
-    name: Run Playwright shards
+    name: Run Playwright tests
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        shardIndex: [1,2,3]
-        shardTotal: [3]
 
     steps:
       - uses: actions/checkout@v4
@@ -35,18 +28,7 @@ jobs:
           echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
           echo "NEW_PASSWORD=${{ secrets.NEW_PASSWORD }}" >> .env
           echo "FIRST_NAME=${{ secrets.FIRST_NAME }}" >> .env
-          echo "STREET_NAME=${{ secrets.STREET_NAME }}" >> .env
-          echo "CITY=${{ secrets.CITY }}" >> .env
-          echo "STATE=${{ secrets.STATE }}" >> .env
-          echo "COUNTRY=${{ secrets.COUNTRY }}" >> .env
-          echo "ZIP_CODE=${{ secrets.ZIP_CODE }}" >> .env
-          echo "SFIRST_NAME=${{ secrets.SFIRST_NAME }}" >> .env
-          echo "SEMAIL=${{ secrets.SEMAIL }}" >> .env
-          echo "SCITY=${{ secrets.SCITY }}" >> .env
-          echo "SSTATE=${{ secrets.SSTATE }}" >> .env
-          echo "SSTREET_ADD=${{ secrets.SSTREET_ADD }}" >> .env
-          echo "SZIP_CODE=${{ secrets.SZIP_CODE }}" >> .env
-          echo "SCOUNTRY=${{ secrets.SCOUNTRY }}" >> .env
+          
      
       - name: Cache npm dependencies
         uses: actions/cache@v3
@@ -61,55 +43,11 @@ jobs:
           npm ci
           npx playwright install --with-deps
 
-      - name: Run shard ${{ matrix.shardIndex }}
-        run: npx playwright test --project=chromium --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Run Playwright tests
+        run: npx playwright test --project=chromium --reporter=html
 
-      - name: Upload blob report
+      - name: Upload test report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: blob-report-${{ matrix.shardIndex }}
-          path: ./blob-report
-          retention-days: 1
-
-  merge-reports:
-    name: Merge Reports
-    needs: run-tests
-    if: always()             # run even if some shards fail
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js 20.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install deps + browsers
-        run: |
-          npm ci
-          npx playwright install --with-deps
-
-      - name: Download all blob reports
-        uses: actions/download-artifact@v4
-        with:
-          path: ./all-blob-reports
-          pattern: blob-report-*
-          merge-multiple: true
-
-      - name: Merge HTML & JSON reports
-        run: npx playwright merge-reports --config=playwright.config.js ./all-blob-reports
-
-      - name: Upload combined report
         uses: actions/upload-artifact@v4
         with:
           name: Playwright Test Report
@@ -119,6 +57,6 @@ jobs:
       - name: Send TestDino report
         run: |
           npx --yes tdpw ./playwright-report \
-            --token="trx_development_754e3c870f69bd019c8142461d9b6484f3e7fb4494537314c20dc9b125bc37a8" \
+            --token=${{ secrets.TESTDINO_TOKEN }} \
             --upload-html \
             --verbose

@@ -1,21 +1,62 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# azure-pipelines.yml
+# Runs Playwright tests on every push/PR
 
 trigger:
-- main
+  branches:
+    include:
+      - "*"
 
-pool:
-  vmImage: ubuntu-latest
+pr:
+  branches:
+    include:
+      - "*"
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+variables:
+  NODE_VERSION: '20.x'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+jobs:
+  - job: run_tests
+    displayName: Run Playwright Tests
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: $(NODE_VERSION)
+        displayName: Setup Node.js
+
+      - script: |
+          echo "USERNAME=$(USERNAME)" >> .env
+          echo "USERNAME1=$(USERNAME1)" >> .env
+          echo "PASSWORD=$(PASSWORD)" >> .env
+          echo "NEW_PASSWORD=$(NEW_PASSWORD)" >> .env
+        displayName: Create .env file
+
+      - task: Cache@2
+        inputs:
+          key: 'npm | "$(Agent.OS)" | package-lock.json'
+          restoreKeys: |
+            npm | "$(Agent.OS)"
+          path: ~/.npm
+        displayName: Cache npm dependencies
+
+      - script: |
+          npm ci
+          npx playwright install --with-deps
+        displayName: Install deps + browsers
+
+      - script: |
+          npx playwright test --project=chromium --reporter=html
+        displayName: Run Playwright tests
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: ./playwright-report
+          artifact: Playwright-Test-Report
+          publishLocation: pipeline
+        displayName: Upload Playwright report
+
+      - script: |
+          npx --yes tdpw ./playwright-report --token="trx_production_3f25e36fb4ddde3c1d5fcf6368bbb952d6f019ca2efd72df2518be437fc40a2b" --upload-html --verbose
+        displayName: Send TestDino report

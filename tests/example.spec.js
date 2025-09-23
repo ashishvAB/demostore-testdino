@@ -581,12 +581,12 @@ test('Verify that user can edit and delete a product review', async () => {
 test('Verify that all the navbar are working properly', async () => {
     await login();
     await allPages.homePage.clickBackToHomeButton();
-    // await allPages.homePage.assertHomePage();
+    await allPages.homePage.assertHomePage();
     await allPages.homePage.clickAllProductsNav();
     await allPages.allProductsPage.assertAllProductsTitle();
     await allPages.homePage.clickOnContactUsLink();
     await allPages.contactUsPage.assertContactUsTitle();
-    await allPages.homePage.clickAboutUsNav();
+    // await allPages.homePage.clickAboutUsNav();
     await allPages.homePage.assertAboutUsTitle();
 });
 

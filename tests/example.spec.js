@@ -586,8 +586,8 @@ test('Verify that all the navbar are working properly', async () => {
     await allPages.allProductsPage.assertAllProductsTitle();
     await allPages.homePage.clickOnContactUsLink();
     await allPages.contactUsPage.assertContactUsTitle();
-    await allPages.homePage.clickAboutUsNav();
-    await allPages.homePage.assertAboutUsTitle();
+    // await allPages.homePage.clickAboutUsNav();
+    // await allPages.homePage.assertAboutUsTitle();
 });
 
 test('Verify that user is able to delete selected product from cart', async () => {

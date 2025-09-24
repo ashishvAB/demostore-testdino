@@ -20,9 +20,9 @@ steps:
   displayName: 'npm install and build'
 
 - script: |
-    npx playright test 
-  displayName: Run playwright tests
+    npx playwright test 
+  displayName: 'Run playwright tests'
 
 - script: |
     npx --yes tdpw playwright-report --token="trx_production_893742b48c252a26c1e2580c005450fefd053e48ca593fc70d78064b761df890" --upload-html
-  displayName: Upload Report to TestDino
+  displayName: 'Upload Report to TestDino'
